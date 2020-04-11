@@ -1,9 +1,9 @@
 import java.util.Collections;
 
 ArrayList<tarotArticle> deck = new ArrayList<tarotArticle>();
-String[] lexicon = {"perception","control","population","resolution","construction","movement","organization","proximity"};
-String[] manifests = {"object","hierarchy","crowd","clarity","development","dynamic", "symmetry","immediacy"};
-String[] opposites = {"subject","distribution","isolation","mystery","deconstruction","static", "asymmetry","distance"};
+String[] lexicon = {"proximity","organization","movement","construction","resolution","population","control","perception"};
+String[] manifests = {"immediacy", "symmetry","dynamic","development","clarity","crowd","hierarchy","object"};
+String[] opposites = {"distance","asymmetry","static","deconstruction","mystery","isolation", "distribution","subject"};
 
 void settings() {
   size(800,800);
@@ -11,7 +11,9 @@ void settings() {
 
 void setup() {
   background(0);
-
+  lexicon = reverse(lexicon);
+  manifests = reverse(manifests);
+  opposites = reverse(opposites);
   loadDeck();
 }
 
@@ -20,6 +22,7 @@ void draw() {
 
 
 void loadDeck() {
+  int num = 0;
   for (int i = 0; i<=1; i++) {
     for (int j = 0; j<=1; j++) {
       for (int k = 0; k<=1; k++) {
@@ -28,8 +31,10 @@ void loadDeck() {
             for (int n = 0; n<=1; n++) {
               for (int o = 0; o<=1; o++) {
                 for (int p = 0; p<=1; p++) {
-                  int[] temp = {i,j,k,l,m,n,o,p};
-                  deck.add(new tarotArticle(temp));
+                  int[] temp = {p,o,n,m,l,k,j,i};
+                  
+                  deck.add(new tarotArticle(temp,num));
+                  num++;
                 }
               }
             }
@@ -39,13 +44,14 @@ void loadDeck() {
     }
   }
 
-  println(deck.get(1).aspects);
+  //println(deck.get(1).aspects);
 }
 
 
 void mouseClicked(){
   background(0);
-  Collections.shuffle(deck);
-  deck.get(0).showUpLarge(mouseX,mouseY);
-  println("correct");
+ // Collections.shuffle(deck);
+  deck.get(255).showUpLarge(mouseX,mouseY);
+ println("--------//------------");
+ println(deck.size());
 }
