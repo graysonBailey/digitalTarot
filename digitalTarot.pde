@@ -1,9 +1,14 @@
+// if wanted, reversabals can actually be a negative subet of the cards,
+// the -127 values which an 8bit int would save...
+// and the 127 above... if going by one's complement with +0 and -0....
+// or -128 below and 127 above....
+
 import java.util.Collections;
 
 ArrayList<tarotArticle> deck = new ArrayList<tarotArticle>();
 String[] lexicon = {"proximity","organization","movement","construction","resolution","population","control","perception"};
 String[] manifests = {"immediacy", "symmetry","dynamic","development","clarity","crowd","hierarchy","object"};
-String[] opposites = {"distance","asymmetry","static","deconstruction","mystery","isolation", "distribution","subject"};
+String[] opposites = {"distance","asymmetry","idle","deconstruction","mystery","isolation", "distribution","subject"};
 
 void settings() {
   size(800,800);
@@ -15,9 +20,12 @@ void setup() {
   manifests = reverse(manifests);
   opposites = reverse(opposites);
   loadDeck();
+  smooth();
 }
 
 void draw() {
+  //background(0);
+  //deck.get(0).showUpLarge(mouseX,mouseY);
 }
 
 
@@ -50,8 +58,8 @@ void loadDeck() {
 
 void mouseClicked(){
   background(0);
- // Collections.shuffle(deck);
-  deck.get(255).showUpLarge(mouseX,mouseY);
- println("--------//------------");
- println(deck.size());
+  Collections.shuffle(deck);
+  deck.get(0).showUpLarge(mouseX,mouseY);
+  
+
 }

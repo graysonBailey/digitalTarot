@@ -6,9 +6,10 @@ class tarotArticle {
   ArrayList<ecologyAgent> set = new ArrayList<ecologyAgent>();
 
 
-  tarotArticle(int[] valSet,int num) {
+  tarotArticle(int[] valSet, int num) {
     aspects = valSet;
     index = num;
+    assemble(index);
   }
 
   void showUpLarge(int x, int y) {
@@ -31,6 +32,8 @@ class tarotArticle {
     rect(0, 0, 160, 20);
     popMatrix();
 
+    println(set.size());
+
     pushMatrix();
     translate(x+110, y);
     strokeWeight(2);
@@ -51,12 +54,16 @@ class tarotArticle {
         int orient = round(random(0, 1));
         if (orient == 0) {
           aspectsCharge[i]=1;
-         orientedLexicon(manifests[i], 12, 70-(i*20), -25);
-       } else {
+          orientedLexicon(manifests[i], 12, 70-(i*20), -25);
+        } else {
           aspectsCharge[i]=-1;
           reversedLexicon(opposites[i], 12, 70-(i*20), 25);
         }
       }
+    }
+
+    for (int i = 0; i <set.size(); i++) {
+      set.get(i).pointdir=aspectsCharge;
     }
   }
 
@@ -65,9 +72,8 @@ class tarotArticle {
     for (int i = 0; i<s.length; i++) {
       //println(i+" : "+pow(s[i]*2,i));
       sum += pow(s[i]*2, i);
-      
     }
-println("oh yeah  "+pow(0,0));
+    println("oh yeah  "+pow(0, 0));
 
     return sum-1;
   }
@@ -77,20 +83,21 @@ println("oh yeah  "+pow(0,0));
     noStroke();
 
 
-
-    assemble(calculateBinaryNum(aspects));
-
+    presentationAgency();
 
     resolution();
   }
 
-  void assemble(int num) {
-
-    for (int i = 0; i < num; i++) {
-      set.add(new ecologyAgent());
+  void presentationAgency() {
+    for(int i = 0; i < set.size(); i++){
+     set.get(i).vis(); 
     }
+  }
 
-    println(set.size());
+  void assemble(int num) {
+    for (int i = 0; i < num; i++) {
+      set.add(new ecologyAgent(new PVector(random(-80,80),random(-150,150)), aspects));
+    }
   }
 
   void resolution() {
@@ -103,7 +110,7 @@ println("oh yeah  "+pow(0,0));
         line(-80, 0, 80, 0);
         noStroke();
         fill(255);
-        ellipse(80, -150, 5, 5);
+        ellipse(80, -150, 10,10);
       } else {
         for (int i = -150; i<150; i+=5) {
           noFill();
